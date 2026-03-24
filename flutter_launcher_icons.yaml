@@ -1,0 +1,10 @@
+flutter_icons:
+  android: true
+  ios: true
+  image_path_android: assets/icons/icon_{{flavor}}.png
+  image_path_ios: assets/icons/icon_{{flavor}}.png
+  flavors:
+    dev:
+      image_path: assets/icons/icon_dev.png
+    prod:
+      image_path: assets/icons/icon_prod.png 

@@ -1,0 +1,19 @@
+import 'package:flutter/material.dart';
+import 'package:flutter_test/flutter_test.dart';
+import 'package:cz_checker/src/providers/theme_mode_provider.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
+
+void main() {
+  test('ThemeModeNotifier toggles between light and dark', () {
+    final container = ProviderContainer();
+    final notifier = container.read(themeModeProvider.notifier);
+
+    expect(container.read(themeModeProvider), ThemeMode.system);
+
+    notifier.toggle();
+    expect(container.read(themeModeProvider), ThemeMode.light);
+
+    notifier.toggle();
+    expect(container.read(themeModeProvider), ThemeMode.dark);
+  });
+} 
