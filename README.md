@@ -1,5 +1,7 @@
 # CZ Checker
 
+> Public experimental source: see [PUBLICATION.md](PUBLICATION.md) for actual checks, known defects, restored modules and operational limits. Earlier audit decisions are historical.
+
 ## Setup
 
 This project is a minimal Flutter project for Android + iOS with Flutter 3.22 / Dart 3.4 and null-safety enabled.
@@ -24,7 +26,7 @@ To get started, ensure you have the following installed:
     *   **Assign Configurations to Schemes:** Go to `Product > Scheme > Manage Schemes...`, select `Dev` and `Prod` schemes, and edit them to assign the corresponding `-dev` and `-prod` build configurations for `Run`, `Test`, `Profile`, `Analyze`, and `Archive`.
     *   **Set Display Names:** In `Runner` (TARGETS section), go to `Build Settings`. Add a `User-Defined Setting` called `BUNDLE_DISPLAY_NAME`. Set `Debug-dev`, `Profile-dev`, `Release-dev` to `CZ Checker Dev` and `Debug-prod`, `Profile-prod`, `Release-prod` to `CZ Checker`. Then, in the `Info` tab, set `Bundle display name` to `$(BUNDLE_DISPLAY_NAME)`.
     *   **Set Bundle Identifiers:** In `Runner` (TARGETS section), go to `Build Settings`. In `Packaging`, expand `Product Bundle Identifier`. Set `*-dev` configurations to `com.example.czchecker.dev` and `*-prod` (and default `Debug`, `Profile`, `Release`) configurations to `com.example.czchecker`.
-    *   **Update Podfile:** Edit `ios/Podfile` to include: 
+    *   **Update Podfile:** Edit `ios/Podfile` to include:
         ```ruby
         project 'Runner', {
           'Debug' => :debug,
