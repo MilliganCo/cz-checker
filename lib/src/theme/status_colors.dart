@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import '../models/check_response.dart';
+import 'package:cz_checker/src/models/check_response.dart';
 
 extension StatusColorX on CheckResponse? {
   /// Возвращает базовый цвет фона карточки для данного ответа.

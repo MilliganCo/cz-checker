@@ -1,13 +1,11 @@
 import 'package:flutter_riverpod/flutter_riverpod.dart';
-import 'package:cz_checker/src/data/crpt_api.dart';
 import 'package:cz_checker/src/providers/crpt_api_provider.dart';
-import 'package:cz_checker/src/models/check_response.dart';
 import 'package:cz_checker/src/models/scanned_item.dart';
 
 class ScannedItemsNotifier extends StateNotifier<List<ScannedItem>> {
   ScannedItemsNotifier(this._ref) : super(const []);
 
-  final StateNotifierProviderRef<ScannedItemsNotifier, List<ScannedItem>> _ref;
+  final Ref _ref;
 
   static const _maxItems = 500;
 

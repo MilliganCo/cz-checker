@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../providers/theme_mode_provider.dart';
-import 'pages/home_page.dart';
+import 'package:cz_checker/src/providers/theme_mode_provider.dart';
+import 'package:cz_checker/src/ui/pages/home_page.dart';
 
 class CzCheckerApp extends HookConsumerWidget {
   const CzCheckerApp({super.key});

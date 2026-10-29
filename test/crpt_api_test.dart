@@ -1,6 +1,5 @@
 import 'dart:convert';
 import 'package:cz_checker/src/data/crpt_api.dart';
-import 'package:cz_checker/src/models/check_response.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:http/http.dart' as http;
 import 'package:http/testing.dart';

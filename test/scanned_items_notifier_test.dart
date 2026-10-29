@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_test/flutter_test.dart';
 import 'package:mockito/annotations.dart';
@@ -5,7 +7,6 @@ import 'package:mockito/mockito.dart';
 
 import 'package:cz_checker/src/data/crpt_api.dart';
 import 'package:cz_checker/src/models/check_response.dart';
-import 'package:cz_checker/src/models/scanned_item.dart';
 import 'package:cz_checker/src/providers/crpt_api_provider.dart';
 import 'package:cz_checker/src/providers/scanned_items_provider.dart';
 
@@ -30,16 +31,20 @@ void main() {
       container.dispose();
     });
 
-    test('add() adds an item with response==null', () async {
-      when(mockCrptApi.check(any))
-          .thenAnswer((_) async => CheckResponse(status: 'IN_CIRCULATION'));
+    test('add() exposes pending state until the response arrives', () async {
+      final response = Completer<CheckResponse>();
+      when(mockCrptApi.check(any)).thenAnswer((_) => response.future);
 
       final notifier = container.read(scannedItemsProvider.notifier);
-      await notifier.add('test_code_1');
+      final operation = notifier.add('test_code_1');
 
       expect(notifier.state.length, 1);
       expect(notifier.state.first.code, 'test_code_1');
       expect(notifier.state.first.response, isNull);
+
+      response.complete(CheckResponse(status: 'IN_CIRCULATION'));
+      await operation;
+      expect(notifier.state.first.isOk, isTrue);
     });
 
     test(
@@ -56,7 +61,7 @@ void main() {
       expect(notifier.state.length, 1);
       expect(notifier.state.first.code, 'test_code_2');
       expect(notifier.state.first.isOk, isTrue);
-      expect(notifier.state.first.response?.status, 'in_circulation');
+      expect(notifier.state.first.response?.status, 'IN_CIRCULATION');
     });
 
     test('limit of 500 items: adding 501st removes the oldest', () async {

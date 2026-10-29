@@ -1,10 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_hooks/flutter_hooks.dart';
 import 'package:hooks_riverpod/hooks_riverpod.dart';
-import '../../providers/scanned_items_provider.dart';
-import '../../models/scanned_item.dart';
-import '../../theme/status_colors.dart';
-import '../../providers/theme_mode_provider.dart';
+import 'package:cz_checker/src/providers/scanned_items_provider.dart';
+import 'package:cz_checker/src/models/scanned_item.dart';
+import 'package:cz_checker/src/theme/status_colors.dart';
+import 'package:cz_checker/src/providers/theme_mode_provider.dart';
 
 class HomePage extends HookConsumerWidget {
   const HomePage({super.key});
@@ -29,11 +29,12 @@ class HomePage extends HookConsumerWidget {
       }
     });
 
-    Future<void> _onSubmit(String value) async {
+    Future<void> onSubmit(String value) async {
       final code = value.trim();
       if (code.isNotEmpty) {
         await ref.read(scannedItemsProvider.notifier).add(code);
       }
+      if (!context.mounted) return;
       controller.clear();
       controller.selection = const TextSelection.collapsed(offset: 0);
       FocusScope.of(context).requestFocus(FocusNode()); // сброс
@@ -70,7 +71,7 @@ class HomePage extends HookConsumerWidget {
                 labelText: 'Отсканируйте код и нажмите Enter',
                 border: OutlineInputBorder(),
               ),
-              onSubmitted: _onSubmit,
+              onSubmitted: onSubmit,
             ),
           ),
           const Divider(height: 0),
@@ -91,7 +92,7 @@ class HomePage extends HookConsumerWidget {
 }
 
 class _ScannedItemCard extends StatelessWidget {
-  const _ScannedItemCard({required this.item, super.key});
+  const _ScannedItemCard({required this.item});
 
   final ScannedItem item;
 

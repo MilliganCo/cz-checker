@@ -4,7 +4,7 @@ import 'dart:io';
 
 import 'package:http/http.dart' as http;
 
-import '../models/check_response.dart';
+import 'package:cz_checker/src/models/check_response.dart';
 
 class CrptApi {
   static const _baseUrl = 'https://mobile.api.crpt.ru';
